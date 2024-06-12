@@ -1,0 +1,41 @@
+<article id="cadastro" class="page">
+    <header>
+        <h1>Cadastro de Usuário</h1>
+    </header>
+
+<?php
+echo $this->flashMessenger()->renderCurrent('error');
+echo $this->flashMessenger()->renderCurrent('success');
+echo $this->flashMessenger()->renderCurrent('info');
+echo $this->flashMessenger()->renderCurrent('warning');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('default');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('error');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('success');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('info');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('warning');
+
+$form = $this->form;
+$form->setAttribute('action',$this->url('admin-register',array('controller'=>'index','action'=>'register')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+// echo $this->formCollection($form);
+// echo $this->formRow($form->get("nome"));
+
+echo "<fieldset><legend>Preencha o formulário para fazer o cadastro.</legend>";
+$formContent="";
+foreach ($form as $element){
+        $formContent .= "\n<div class=\"pure-controls\">".$this->formrow($element);
+        if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                $formContent .= " <a href=\"". $this->url('admin-auth') ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+        }
+        $formContent .=  "</div>";
+        
+}
+echo $formContent;
+echo "</fieldset>";
+
+echo $this->form()->closeTag();
+
+?>
+</article>

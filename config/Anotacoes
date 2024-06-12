@@ -1,0 +1,28 @@
+// Gerando Entidades de uma tabela e um local específico do banco.
+
+vendor/bin/doctrine-module orm:convert-mapping --filter="usuario" --from-database annotation module/Admin/src/Admin/Entity/
+
+ou
+
+vendor/bin/doctrine-module --filter="" orm:convert-mapping  --from-database --namespace="Admin\\Entity\\" annotation module/Admin/src/
+
+
+// Gerando Entidades de todas as tabelas possíveis
+// auto generate get and set
+
+vendor/bin/doctrine-module --filter="" orm:generate-entities ./module/Admin/src/ --generate-annotations=true
+
+
+Tabela de configurações entre manage, array config e module
+The top level configuration keys
+
+Manager -   Key name in configuration array -	Method name in Module.php
+ServiceManager	service_manager	getServiceConfig()
+ViewHelperManager	view_helpers	getViewHelperConfig()
+ControllerPluginManager	controller_plugins	getControllerPluginConfig()
+ControllerLoader	controllers	getControllerConfig()
+Sample Code in Module.php :
+
+
+// Gerando Proxies
+vendor/bin/doctrine-module orm:generate-proxies

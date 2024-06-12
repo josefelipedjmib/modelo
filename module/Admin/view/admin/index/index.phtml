@@ -1,0 +1,85 @@
+<?php
+
+use Base\Mib\URL;
+	if($this->UsuarioIdentidade("Admin")){
+		$usuario = $this->sl->get('Doctrine\ORM\EntityManager')->find(
+			"Admin\Entity\Usuario",
+			$this->UsuarioIdentidade("Admin")->getId()
+		);
+		$acl = $this->sl->get("Acl\Permissions\Acl");
+		$roles = $usuario->getRole();
+		$role = 100;
+		$isAdmin = false;
+		if($roles->count()>0){
+			$role = $roles[0]->getId();
+			$isAdmin = $roles[0]->getIsAdmin();
+		}
+?>
+<!-- Admin Principal -->
+	<article id="admin" class="page">
+		<header>
+			<h1>Painel Administrativo</h1>
+			<h3>
+			<?= $usuario->getNomeExibicao(); ?>
+			</h3>
+		</header>
+<?php
+
+echo $this->flashMessenger()->renderCurrent('error');
+echo $this->flashMessenger()->renderCurrent('success');
+echo $this->flashMessenger()->renderCurrent('info');
+echo $this->flashMessenger()->renderCurrent('warning');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('default');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('error');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('success');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('info');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('warning');
+
+?>
+        <h2>Serviços:</h2>
+		<ul class="listadelinks">
+			<li><a href="<?= $this->url('admin-admin/default',array('controller'=>'conta')); ?>" class="pure-button pure-button-primary"><i class="fa fa-address-card"></i> Minha Conta</a></li>
+	<?php
+
+		$servicos = $this->sl->get('config')["servicos"];
+
+		foreach($servicos as $servico){
+			$url = $servico['url'];
+			if(is_array($url)){
+				if(count($url)>1){
+					$url = $this->url($url[0],$url[1]);
+				}else{
+					$url = $this->url($url[0]);
+				}
+			}
+			if(
+				$acl->Valida(
+					URL::getUltimaParte($url),
+					$usuario
+				)
+			){
+	?>
+			<li><a href="<?= $url; ?>" class="pure-button pure-button-primary"><?= $servico['icon']; ?> <?= $servico['nome']; ?></a></li>
+	<?php	
+			}
+		}
+	?>
+		</ul>
+    </article>
+	<?php
+
+	}else{
+
+	?>
+<!-- Admin Principal -->
+	<article id="admin" class="page">
+			<header>
+				<h1>Painel Administrativo</h1>
+				<h3>
+				Erro ao carregar Usuário - Contate suporte.
+				</h3>
+			</header>
+	</article>
+	<?php
+	}
+	?>

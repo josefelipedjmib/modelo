@@ -1,0 +1,23 @@
+<?php
+
+$mensagemError = "\n<pre>\nArquivo Não Encontrado:\nURL: ".\Base\Mib\URL::getInstance()->getURL()." \nReferer: ".$_SERVER['HTTP_REFERER']." \nMétodo de Requisição: ".$_SERVER['REQUEST_METHOD']." \n-------------------\n</pre>\n\n\n\n\n";
+
+$this->Logger("error404")->crit($mensagemError);
+
+?><article id="error" class="page">
+    <header>
+        <h1>Erro 404!</h1>
+    </header>
+        <h2>
+            A página não foi localizada<br> 
+            (arquivo não encontrado)
+        </h2>
+        <h3>url = <?= $_SERVER["REQUEST_URI"] ?></h3>
+        <p>A página que você procura pode ter sido removida, o seu nome pode ter sido alterado ou talvez ela não esteja disponível no momento.</p>
+
+        <p>Caso tenha digitado o endereço da página diretamente no seu navegador, na barra de endereços, certifique-se de que ele tenha sido digitado corretamente.</p>
+
+        <p>Se preferir, use o menu da página, para chegar as informações desejadas.</p>
+
+        <p><a href="<?= $this->basePath(''); ?>./faleconosco/">Ou Clique Aqui</a>, para nos mandar uma mensagem notificando o erro!</p>
+</article>

@@ -1,0 +1,31 @@
+<?php
+
+use Base\Mib\URL,
+    Base\Mib\DataHora;
+
+$configs = $this->Configger();
+
+?>
+
+Olá <?php echo $this->nome;?>,
+<br />
+<br />
+
+<p>
+    Foi adicionado um novo provedor social no seu cadastro em nosso site, <?= $configs['sistema']['nome'] ?>.
+    <br />
+    Lembramos que assim, você poderá acessar escolhendo o botão do provedor na página de entrada ou usando o e-mail do provedor e a sua senha cadastrada em nosso sistema, caso tenha feito.
+</p>
+<br />
+<p>
+    Observação 1: caso não tenha solicitado registro de um novo provedor, recomendamos entrar em sua conta e verificar as suas informações e alterar a senha.
+</p>
+<br />
+<p>
+    Observação 2: se não conhece o nosso site, favor desconsiderar a mensagem. Pode ter sido alguém que digitou seu e-mail por engano e sem a confirmação não poderá acessar.
+</p>
+<br />
+<hr />
+Página de Referência: <?php echo $_SERVER['HTTP_REFERER']; ?> <br />
+Data de envio: <?php echo DataHora::dataExtenso() . " - " . DataHora::horaExtenso(); ?>
+<hr />

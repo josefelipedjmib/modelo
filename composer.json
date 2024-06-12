@@ -1,0 +1,49 @@
+{
+    "name": "sme-cit/contratos",
+    "description": "Sistema de processos seletivos de contratos da SME - CIT",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "SME",
+        "CIT",
+        "Contratos"
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.zendframework.com/"
+        }
+    ],
+    "homepage": "https://www.citsme.online/",
+    "authors": [
+        {
+            "name": "José Felipe - Paquetá",
+            "email": "josefelipe@rioeduca.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "zendframework/zendframework": "~2.5",
+        "zendframework/zftool": "dev-master",
+        "phpmailer/phpmailer": "~5.2",
+        "doctrine/doctrine-orm-module": "~0.7",
+        "hounddog/doctrine-data-fixture-module": "0.*",
+        "google/apiclient": "^2.0",
+        "facebook/graph-sdk": "5.*",
+        "hybridauth/hybridauth" : "~3.0@RC",
+        "myclabs/php-enum": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mib\\": "vendor/mib/mib/src/"
+        }
+    },
+    "require-dev": {
+        "zendframework/zend-developer-tools": "^1.1"
+    },
+    "scripts": {
+        "serve": "php -S localhost:80 -t public public/index.php"
+    },
+    "config": {
+        "process-timeout": 2000
+    }
+}

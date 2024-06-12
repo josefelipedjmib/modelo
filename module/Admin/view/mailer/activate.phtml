@@ -1,0 +1,36 @@
+<?php
+
+use Base\Mib\URL,
+    Base\Mib\DataHora;
+
+$configs = $this->Configger();
+
+?>
+
+Olá <?php echo $this->nome;?>,
+<br />
+<br />
+
+<p>
+    Informamos que sua conta em nosso site, <?= $configs['sistema']['nome'] ?>, foi ativa e a senha alterada.
+    <br />
+    Entre em nosso site e vá na opção 'Entrar' para se identificar e utilizar os nossos serviços.
+    
+    http://<?php echo URL::getInstance()->getHost() ?>
+    
+</p>
+<br />
+<p>
+    Observação: Caso você não tenha pedido para redefinir sua senha, recomendamos a alteração de sua senha do e-mail e em nosso site.
+</p>
+<br />
+<p>
+    Em caso de dúvidas, entre em contato conosco pela seção Fale Conosco de nosso site.
+
+    http://<?php echo URL::getInstance()->getHost() ?>/faleconosco
+</p>
+<br />
+<hr />
+Página de Referência: <?php echo $_SERVER['HTTP_REFERER']; ?> <br />
+Data de envio: <?php echo DataHora::dataExtenso() . " - " . DataHora::horaExtenso(); ?>
+<hr />

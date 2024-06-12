@@ -1,0 +1,26 @@
+<article id="conta" class="page">
+    <header>
+        <a href="<?= $this->url('admin-admin'); ?>" class="pure-button pure-button-primary"><i class="fa fa-arrow-left"></i> Painel Administrativo</a>
+        <h1>Imagem de Perfil</h1>
+    </header>
+<?php
+
+$form->prepare();
+echo $this->form()->openTag($form);
+
+echo "<fieldset><legend>Escolha uma imagem de seu computador para ser usada como imagem de perfil. Lembre-se que esta imagem ficará disponível publicamente.</legend>";
+$formContent="";
+foreach ($form as $element){
+        $formContent .= "\n<div class=\"pure-controls\">".$this->formrow($element);
+        if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                $formContent .= " <a href=\"". $this->url('admin-admin/default',array('controller'=>'conta')) ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+        }
+        $formContent .=  "</div>";
+        
+}
+echo $formContent;
+echo "</fieldset>";
+echo $this->form()->closeTag();
+
+?>
+</article>

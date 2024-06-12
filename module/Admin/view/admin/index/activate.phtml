@@ -1,0 +1,49 @@
+<article id="cadastro" class="page">
+    <header>
+        <h1>Ativação de Usuário</h1>
+    </header>
+<?php
+
+echo $this->flashMessenger()->renderCurrent('error');
+echo $this->flashMessenger()->renderCurrent('success');
+echo $this->flashMessenger()->renderCurrent('info');
+echo $this->flashMessenger()->renderCurrent('warning');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('default');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('error');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('success');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('info');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('warning');
+
+if($this->exibeform){
+    
+    $form = $this->form; 
+
+    $form->setAttribute('action', $this->url('admin-activate'));
+
+    $form->prepare();
+    echo $this->form()->openTag($form);
+
+    echo "<fieldset><legend>Preenche o formulário abaixo com seu e-mail e sua nova senha.</legend>";
+    $formContent="";
+    foreach ($form as $element){
+            $formContent .= "\n<div class=\"pure-controls\">".$this->formrow($element);
+            if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                    $formContent .= " <a href=\"". $this->url('admin-auth') ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+            }
+            $formContent .=  "</div>";
+            
+    }
+    echo $formContent;
+    echo "</fieldset>";
+    echo $this->form()->closeTag();
+
+}else{
+
+?>
+    <p>Aproveite e navegue pelo nosso site ou <a href="<?= $this->url('admin-auth'); ?>">faça login</a> para ter acesso aos nossos serviços.</p>
+<?php
+
+}
+
+?>
+</article>

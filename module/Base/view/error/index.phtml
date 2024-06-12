@@ -1,0 +1,61 @@
+<?php
+
+
+if (isset($this->display_exceptions) && $this->display_exceptions) :
+    $mensagemError = "\n<pre>\n\nErro 500\nUrl: ".\Base\Mib\URL::getInstance()->getURL()." \nReferer: ".@$_SERVER['HTTP_REFERER']." \nMétodo de Requisição: ".$_SERVER['REQUEST_METHOD']." \n-------------------";
+    if (isset($this->exception) && $this->exception instanceof Exception) :
+        $mensagemError.=sprintf(
+            "\n\n::Exceção  Primária::\n-------------------\n\nArquivo: %s:%d \nMenssagem: %s\nCodigo: (%d)\n::Stack Trace::\n%s\nClasse Exception: %s\n",
+            $this->exception->getFile(),
+            $this->exception->getLine(),
+            $this->exception->getMessage(),
+            $this->exception->getCode(),
+            $this->exception->getTraceAsString(),
+            get_class($this->exception)
+        );
+
+        $e = $this->exception->getPrevious();
+        $icount = 0;
+
+        if ($e) :
+            $mensagemError.="\n\n::Exceção  Anteriores::\n-------------------\n";
+            while ($e) :
+                $mensagemError.=sprintf(
+                    "\nArquivo: %s:%d \nMenssagem: %s\nCodigo: (%d)\n::Stack Trace::\n%s\nClasse Exception: %s\n",
+                    $this->exception->getFile(),
+                    $this->exception->getLine(),
+                    $this->exception->getMessage(),
+                    $this->exception->getCode(),
+                    $this->exception->getTraceAsString(),
+                    get_class($this->exception)
+                );
+
+                $e = $e->getPrevious();
+                $icount += 1;
+                if ($icount >= 50) {
+                    $mensagemError.="\nThere may be more exceptions, but we have no enough memory to proccess it.\n";
+                    break;
+                }
+            endwhile;
+        endif;
+    else :
+            $mensagemError.="\nNo Exception available\n-------------------\n\n";
+    endif;
+    $mensagemError.="</pre>\n\n\n\n\n";
+
+    $this->Logger()->crit($mensagemError);
+endif;
+?>
+
+<article id="error" class="page">
+    <header>
+        <h1>Erro 500!</h1>
+        <h2>A página não pôde ser exibida.</h2>
+    </header>
+
+    <h3>Erro Interno do Servidor</h3>
+    <p>Há um problema na página que você está tentando acessar e por isso ela não pode ser exibida.</p>
+    <p>Tente atualizar a página ou volte acessá-la mais tarde.</p>
+    <p>Se preferir, utilize o menu de acesso da página, para chegar as informações desejadas.</p>
+    <p><a href="<?= $this->basePath(''); ?>./faleconosco/">Ou Clique Aqui</a>, para nos mandar uma mensagem notificando o erro!</p>
+</article>

@@ -1,0 +1,61 @@
+<article id="roles" class="page">
+    <header>
+        <a href="<?= $this->url('acl-admin'); ?>" class="pure-button pure-button-primary"><i class="fa fa-id-badge"></i> Lista de Controle de Acesso</a>
+        <h1>Papéis</h1>
+    </header>
+<?php
+echo $this->flashMessenger()->renderCurrent('error');
+echo $this->flashMessenger()->renderCurrent('success');
+echo $this->flashMessenger()->renderCurrent('info');
+echo $this->flashMessenger()->renderCurrent('warning');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('default');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('error');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('success');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('info');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('warning');
+?>
+<p class="semindentar">
+    <a href="<?php echo $this->url('acl-admin/default',array('controller'=>'roles','action'=>'new')); ?>" class="pure-button pure-button-primary">Novo</a>
+</p>
+<table class="pure-table responsivo">
+    <thead>
+        <tr>
+            <th id="id">ID</th>
+            <th id="nome">Nome</th>
+            <th id="heranca">Herança</th>
+            <th id="admin">Admin?</th>
+            <th id="acao">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        
+        $i = 0;
+        foreach($this->data as $entity):
+        $i++;
+
+        ?>
+        <tr<?php
+        
+        if($i%2==0)
+            echo " class=\"pure-table-odd\"";
+
+        ?>>
+            <td headers="id" data-label="ID"><?php echo $entity->getId(); ?></td>
+            <td headers="nome" data-label="Nome"><?php echo $entity->getNome(); ?></td>
+            <td headers="heranca" data-label="Herança"><?php echo $entity->getParent(); ?> &nbsp;</td>
+            <td headers="admin" data-label="Admin?"><?php echo $entity->getIsAdmin()?'Sim':'Não'; ?></td>
+            <td headers="acao" data-label="Ação">
+                <a href="<?php echo $this->url('acl-admin/default',
+                        array('controller'=>'roles','action'=>'edit','id'=>$entity->getId())); ?>" class="button-secondary pure-button">Editar</a>
+                <a href="<?php echo $this->url('acl-admin/default',
+                        array('controller'=>'roles','action'=>'delete','id'=>$entity->getId())); ?>" class="button-warning pure-button">Deletar</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<br />
+
+<?php echo $this->paginationControl($this->data,'Sliding','partials/paginator'); ?>
+</article>

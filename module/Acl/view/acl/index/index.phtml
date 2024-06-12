@@ -1,0 +1,14 @@
+
+<!-- Admin Principal -->
+	<article id="admin" class="page">
+		<header>
+			<a href="<?= $this->url('admin-admin'); ?>" class="pure-button pure-button-primary"><i class="fa fa-arrow-left"></i> Painel Administrativo</a>
+			<h1><i class="fa fa-id-badge"></i> Lista de Controles de Acesso</h1>
+		</header>
+        <p>Serviços:</p>
+		<ul class="listadelinks">
+			<li><a href="<?= $this->url('acl-admin/default',array('controller' => 'privileges')); ?>" class="pure-button pure-button-primary"><i class="fa fa-wrench"></i> Privilégios</a></li>
+			<li><a href="<?= $this->url('acl-admin/default',array('controller' => 'roles')); ?>" class="pure-button pure-button-primary"><i class="fa fa-vcard"></i> Papéis</a></li>
+			<li><a href="<?= $this->url('acl-admin/default',array('controller' => 'resources')); ?>" class="pure-button pure-button-primary"><i class="fa fa-cogs"></i> Recursos</a></li>
+		</ul>
+    </article>

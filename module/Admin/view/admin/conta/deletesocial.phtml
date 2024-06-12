@@ -1,0 +1,36 @@
+<article id="conta" class="page">
+    <header>
+        <h1>Apagar Provedor Social?</h1>
+    </header>
+
+
+<?php
+$form = $this->form; 
+
+$form->setAttribute('action', $this->url('admin-admin/default',array('controller'=>'conta','action'=>'deletesocial')));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+
+echo "<fieldset><legend>Deseja apagar este provedor?</legend>";
+echo "<div class=\"pure-controls\">Provedor: ".$form->get('oauth_provider')->getValue()."</div>";
+echo "<div class=\"pure-controls\">Perfil: ".$form->get('perfil')->getValue()."</div>";
+$formContent="";
+foreach ($form as $element){
+        $formContent .= "\n<div class=\"pure-controls\">";
+        if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                $formContent .= "<input type=\"submit\" value=\"Exlcuir conta!\" class=\"button-error pure-button\"> <a href=\"". $this->url('admin-admin/default',array('controller'=>'conta')) ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+        }else{
+            $readonly = str_replace("<input","<input readonly=\"readonly\"",$this->formrow($element));
+            $readonly = str_replace("<select","<select disabled=\"disabled\"", $readonly);
+            $readonly = str_replace("<textarea","<textarea readonly=\"readonly\"", $readonly);
+            $formContent .= $readonly;
+        }
+        $formContent .=  "</div>";
+}
+echo $formContent;
+echo "</fieldset>";
+echo $this->form()->closeTag();
+
+?>
+</article>

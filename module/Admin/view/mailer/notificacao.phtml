@@ -1,0 +1,23 @@
+<?php
+
+use Base\Mib\URL,
+    Base\Mib\DataHora;
+
+?>
+<p>
+   Modificação realizada no sistema: 
+</p>
+<br />
+<p>
+    Assunto: <?= $this->assunto; ?>
+<br />
+    Usuário: <?= $this->usuario; ?>
+<br />
+    Status: <?= $this->status; ?>
+</p>
+<br />
+<hr />
+Página de Referência: <?php echo $_SERVER['HTTP_REFERER']; ?> <br />
+IP: <?= $_SERVER['REMOTE_ADDR']; ?><br />
+Data: <?php echo DataHora::dataExtenso() . " - " . DataHora::horaExtenso(); ?>
+<hr />

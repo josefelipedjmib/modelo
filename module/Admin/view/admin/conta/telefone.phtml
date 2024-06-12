@@ -1,0 +1,28 @@
+<article id="conta" class="page">
+    <header>
+        <h1>Cadastro de Telefone</h1>
+    </header>
+
+<?php
+$form = $this->form; 
+
+$form->setAttribute('action', $this->url('admin-admin/default',array('controller'=>'conta','action'=>'telefone')));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+echo "<fieldset><legend>Altere o formulário abaixo.</legend>";
+$formContent="";
+foreach ($form as $element){
+        $formContent .= "\n<div class=\"pure-controls\">".$this->formrow($element);
+        if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                $formContent .= " <a href=\"". $this->url('admin-admin/default',array('controller'=>'conta')) ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+        }
+        $formContent .=  "</div>";
+        
+}
+echo $formContent;
+echo "</fieldset>";
+echo $this->form()->closeTag();
+
+?>
+</article>

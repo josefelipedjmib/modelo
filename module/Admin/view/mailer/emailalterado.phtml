@@ -1,0 +1,38 @@
+<?php
+
+use Base\Mib\URL,
+    Base\Mib\DataHora;
+
+$configs = $this->Configger();
+
+?>
+<p>
+Olá <?php echo $this->nome;?>,
+</p>
+<br />
+
+<p>
+    Você está recebendo esta mensagem, pois seu e-mail foi modificado na sua conta em nosso site, <?= $configs['sistema']['nome'] ?>.
+    <br />
+    Por este motivo, precisamos verificar se o e-mail é válido. Para ativar novamente sua conta e alterar a senha, acesse: http://<?php echo URL::getInstance()->getHost() . $this->url('admin-activate', array('key'=>$this->activationKey)); ?>
+    
+</p>
+<br />
+<p>
+    Observação: caso não tenha solicitado a alteração, favor entrar no link acima, informando o e-mail ( <?php echo $this->email;?> ) e criar uma nova senha. Depois vá em sua conta e retorne o e-mail desejado. Favor nos informe, caso isso acontecer.
+</p>
+<br />
+<p>
+    Em caso de dúvidas, entre em contato conosco pela seção Fale Conosco de nosso site.
+
+    http://<?php echo URL::getInstance()->getHost() ?>/faleconosco
+</p>
+<br />
+<p>
+    Caso não conheça o nosso site, favor desconsiderar a mensagem. Pode ter sido alguém que digitou seu e-mail por engano e sem a confirmação não poderá acessar.
+</p>
+<br />
+<hr />
+Página de Referência: <?php echo $_SERVER['HTTP_REFERER']; ?> <br />
+Data de envio: <?php echo DataHora::dataExtenso() . " - " . DataHora::horaExtenso(); ?>
+<hr />

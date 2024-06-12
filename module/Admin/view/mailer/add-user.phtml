@@ -1,0 +1,28 @@
+<?php
+
+use Base\Mib\URL,
+    Base\Mib\DataHora;
+
+$configs = $this->Configger();
+
+?>
+
+Olá <?php echo $this->nome;?>,
+<br />
+<br />
+
+<p>
+    Esse email tem o objetivo de confirmar seu cadastro em nosso site, <?= $configs['sistema']['nome'] ?>.
+    <br />
+    Para ativar sua conta e definir uma senha, acesse: http://<?php echo URL::getInstance()->getHost() . $this->url('admin-activate', array('key'=>$this->activationKey)); ?>
+    
+</p>
+<br />
+<p>
+    Observação: caso não tenha solicitado registro e não conhece o nosso site, favor desconsiderar a mensagem. Pode ter sido alguém que digitou seu e-mail por engano e sem a confirmação não poderá acessar.
+</p>
+<br />
+<hr />
+Página de Referência: <?php echo $_SERVER['HTTP_REFERER']; ?> <br />
+Data de envio: <?php echo DataHora::dataExtenso() . " - " . DataHora::horaExtenso(); ?>
+<hr />

@@ -1,0 +1,29 @@
+<article id="resources" class="page">
+    <header>
+        <h1>Novo Recurso</h1>
+    </header>
+
+<?php
+$form = $this->form; 
+
+$form->setAttribute('action', $this->url('acl-admin/default',array('controller'=>'resources','action'=>'new')));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+
+echo "<fieldset><legend>Preencha o formulário para cadastrar.</legend>";
+$formContent="";
+foreach ($form as $element){
+        $formContent .= "\n<div class=\"pure-controls\">".$this->formrow($element);
+        if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                $formContent .= " <a href=\"". $this->url('acl-admin/default',array('controller'=>'resources')) ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+        }
+        $formContent .=  "</div>";
+        
+}
+echo $formContent;
+echo "</fieldset>";
+echo $this->form()->closeTag();
+
+?>
+</article>

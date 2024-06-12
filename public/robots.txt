@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /ctd/
+Disallow: /inc/
+Disallow: /js/
+Disallow: /teste/

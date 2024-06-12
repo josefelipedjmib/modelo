@@ -1,0 +1,54 @@
+<article id="cadastro" class="page">
+    <header>
+        <h1>Entrada com Usuário Social</h1>
+    </header>
+
+<?php
+echo $this->flashMessenger()->renderCurrent('error');
+echo $this->flashMessenger()->renderCurrent('success');
+echo $this->flashMessenger()->renderCurrent('info');
+echo $this->flashMessenger()->renderCurrent('warning');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('default');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('error');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('success');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('info');
+$this->flashMessenger()->clearCurrentMessagesFromNamespace('warning');
+
+$form = $this->form;
+$form->get("submit")->setValue("Confirmar");
+$form->setAttribute('action',$this->url('admin-social',array('controller'=>'auth','action'=>'social')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+// echo $this->formCollection($form);
+// echo $this->formRow($form->get("nome"));
+
+?>
+
+    <fieldset>
+        <legend>Bem-vindo! Como é a sua primeira vez que está tentando entrar com um provedor, confirme se as informações recebidas estão corretas.</legend>
+        <div class="pure-controls">
+            <label>
+                <input type="checkbox" name="imagem" value="1"><strong class="info"> Deseja salvar sua imagem de perfil? </strong>
+            </label>
+            <img src="<?= $form->get('foto')->getValue(); ?>" width="150" height="150" alt="foto de perfil" /><br />
+            URL do Perfil: <a href="<?= $form->get('perfil')->getValue(); ?>"><?= $form->get('perfil')->getValue(); ?></a>
+        </div>
+<?php
+
+$formContent="";
+foreach ($form as $element){
+        $formContent .= "\n<div class=\"pure-controls\">".$this->formrow($element);
+        if(strpos($this->formrow($element), "type=\"submit\"")>0){
+                $formContent .= " <a href=\"". $this->url('admin-admin') ."\" class=\"pure-button button-secondary\">Cancelar</a>";
+        }
+        $formContent .=  "</div>";
+        
+}
+echo $formContent;
+echo "</fieldset>";
+
+echo $this->form()->closeTag();
+
+?>
+</article>

@@ -1,0 +1,55 @@
+<?php
+
+$urlPattern = $_SERVER['REQUEST_URI'];
+
+
+$formatUrl = function ($page) use ($urlPattern){
+    $slug = 'pagina/';
+    if(substr($urlPattern, -1)!='/')
+        $slug = '/' . $slug;
+    if (@!preg_match($slug, $urlPattern))
+        return $urlPattern . $slug . (int) $page;
+    else
+        return preg_replace('@/pagina/\d+@', $slug . (int) $page, $urlPattern);
+};
+
+
+
+if ($this->pageCount):
+    ?>
+
+    <div class="pagination pagination-centered">
+        <ul>
+    <?php if (isset($this->previous)): ?>
+                <li><a href="<?php echo $formatUrl($this->first); ?>">Primeira</a></li>
+                <li><a href="<?php echo $formatUrl($this->previous); ?>">«</a></li>
+            <?php else: ?>
+                <li class="disabled"><a href="#">Primeira</a></li>
+                <li class="disabled"><a href="#">«</a></li>
+            <?php endif; ?>
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+        
+                    <li>
+                        <a href="<?php echo $formatUrl($page); ?>"><?php echo $page; ?></a>
+                    </li> 
+        <?php else: ?>
+        
+                    <li class="active">
+                        <a href="#"><?php echo $page; ?></a>
+                    </li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+            <?php if (isset($this->next)): ?>
+            
+                    <li><a href="<?php echo $formatUrl($this->next); ?>">»</a></li>
+                    <li><a href="<?php echo $formatUrl($this->last); ?>">Última</a></li>
+            <?php else: ?>
+            
+                    <li class="disabled"><a href="#">»</a></li>
+                    <li class="disabled"><a href="#">Última</a></li>
+            <?php endif; ?>
+            
+        </ul>
+    </div>
+<?php endif; ?>

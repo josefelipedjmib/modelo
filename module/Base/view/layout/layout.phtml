@@ -1,0 +1,194 @@
+<?php
+
+use Base\Mib\DataHora,
+    Base\Mib\URL,
+    Base\Mib\Layout;
+
+    $configs = $this->Configger();
+
+    $paginaAdmin = strpos(URL::getInstance()->getPagina(),"admin")===0;
+    $paginaHost = URL::getInstance()->getHost();
+    $localhost = in_array(
+                        $paginaHost,
+                        [
+                            "localhost",
+                            "smecit"
+                        ]);
+    $propagandaExibe = !($localhost || $paginaAdmin);
+
+    echo $this->doctype();
+?>
+
+<html lang="pt-BR">
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <?php echo $this->headTitle($configs['sistema']['nome']) ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Jos&eacute; Felipe - Paquetá">
+		<meta name="description" content="SME - CIT Sistemas">
+		<meta name="keywords" content="SME - CIT">
+        <meta name="host" content="https://www.citsme.online/">
+        <meta name="identifier-URL" content="https://www.citsme.online/">
+        <link rel="canonical" href="https://www.citsme.online/<?= URL::getInstance()->getURI(1); ?>" />
+		<link rel="icon" href="<?= $this->basePath(''); ?>favicon.ico" type="image/x-icon"><link rel="apple-touch-icon" sizes="57x57" href="<?= $this->basePath(''); ?>apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="<?= $this->basePath(''); ?>apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="<?= $this->basePath(''); ?>apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="<?= $this->basePath(''); ?>apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="<?= $this->basePath(''); ?>apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="<?= $this->basePath(''); ?>apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="<?= $this->basePath(''); ?>apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="<?= $this->basePath(''); ?>apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?= $this->basePath(''); ?>apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="<?= $this->basePath(''); ?>android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?= $this->basePath(''); ?>favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="<?= $this->basePath(''); ?>favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?= $this->basePath(''); ?>favicon-16x16.png">
+        <link rel="manifest" href="<?= $this->basePath(''); ?>manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#000033" />
+
+        <?php
+
+        $this->placeholder('cssGtIE8AndAll')
+                ->setPrefix("\n<!--[if gt IE 8]><!-->\n<link rel=\"stylesheet\" type=\"text/css\" href=\"")
+                ->setSeparator("\">\n<!--<![endif]-->\n<!--[if gt IE 8]><!-->\n<link rel=\"stylesheet\" type=\"text/css\" href=\"")
+                ->setIndent(8)
+                ->setPostfix("\">\n<!--<![endif]-->\n");
+        $this->placeholder('cssGtIE8AndAll')->set("https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css");
+
+        // All In One Minify
+        $this->headLink()->appendStylesheet($this->basePath("css/allinone20180122.min.css"))
+            ->appendStylesheet("https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css","screen",'lte IE 8');
+
+        $this->headStyle()->appendStyle("
+body { 
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background: #003;
+    font-family: sans-serif;
+}
+a:link {
+	color: #09f;
+	text-decoration: none;
+	border-bottom: 1px dotted #09f;
+}
+
+a:visited {
+	color: #9fc;
+	border-bottom-color: #9cc;
+}
+
+a:hover {
+	color: #fff;
+	border-bottom-color: #fff;
+}
+
+a:active {
+	color: #6f9;
+	border-bottom-color: #6f9;
+}
+
+#smecit>header{
+	position: relative;
+	padding: 1em;
+	height: 60px;
+
+}
+
+h1 {
+	letter-spacing: 1px;
+	color: #9cf;
+	padding: 0 0 10px;
+}
+
+h2 {
+	padding-left: .3em;
+}
+
+h3 {
+	text-transform: uppercase;
+	margin: 1em;
+}
+
+.main-menu-btn,
+#main-menu-state,
+.nav-brand,
+#main-menu>li ul{
+    display: none;
+}
+
+.sm-blue{
+    background: #003;
+}
+
+
+        ");
+
+        echo $this->headStyle();
+
+        ?>
+
+
+    </head>
+	<body>
+		<div id="smecit">
+            <header>
+                <a href="<?= $this->basePath(''); ?>"><img src="<?= $this->basePath(''); ?>img/riosme.png" style="width: 100%; max-width: 260px;" alt="<?= $configs['sistema']['nome'] ?>" /></a>
+            </header>
+            <nav class="main-nav" role="navigation">
+                <!-- Mobile menu toggle button (hamburger/x icon) -->
+                <input id="main-menu-state" type="checkbox" />
+                <label class="main-menu-btn" for="main-menu-state">
+                    <span class="main-menu-btn-icon"></span> Menu
+                </label>
+                 <p class="nav-brand"><a href="<?= $this->basePath(''); ?>" title="<?= $configs['sistema']['nome'] ?>"><img src="<?= $this->basePath(''); ?>img/riosme.png" height="22" alt="<?= $configs['sistema']['nome'] ?>"></a></p> 
+                <ul id="main-menu" class="sm sm-blue">
+<?php
+    Layout::$basePath = $this->basePath('');
+    Layout::menuMonta();
+?>
+                <?php
+                    if($this->UsuarioIdentidade("Admin")){
+                ?>
+                    <li><a href="<?= $this->basePath(''); ?>sair/">Sair</a></li>
+                <?php
+                    }else{
+                ?>
+                    <!-- <li><a href="<?= $this->basePath(''); ?>entrar/">Entrar</a></li> -->
+                <?php
+                    }
+                ?>
+                </ul>
+            </nav>
+            <?php
+                if(strpos(URL::getInstance()->getURI(1),"/admin")===0){
+                    Layout::breadCrumb();
+                }
+            ?>
+            <main>
+                <?= $this->content; ?>
+            </main>
+            <!-- Footer -->
+            <footer>
+                <p class="credits"> Copyright 2022 - <?= DataHora::ano(); ?> - Rioeduca.net</a></p>
+            </footer>
+            <!-- End Footer -->
+            
+	   </div>
+
+        <?php
+
+        // All in One
+        $this->headScript()
+            ->appendFile($this->basePath('js/allinone20180122.min.js'));
+
+
+        echo $this->headLink();
+        echo $this->placeholder("cssGtIE8AndAll");
+        echo $this->headScript();
+        
+        ?>
+    </body>
+</html><!-- <?php echo URL::getInstance()->getIp() . " - " . URL::getInstance()->getScheme() . " - " . DataHora::contador() . " - " . DataHora::dataExtenso(); ?> -->
